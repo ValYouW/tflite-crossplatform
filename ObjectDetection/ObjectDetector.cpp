@@ -13,10 +13,21 @@ ObjectDetector::ObjectDetector(const char* modelBuffer, int size, bool quantized
 ObjectDetector::~ObjectDetector() {
 	if (m_model != nullptr)
 		TfLiteModelDelete(m_model);
+
+	if (m_modelBytes != nullptr) {
+		free(m_modelBytes);
+		m_modelBytes = nullptr;
+	}
 }
 
 void ObjectDetector::initDetectionModel(const char* modelBuffer, int size) {
-	m_model = TfLiteModelCreate(modelBuffer, size);
+	if (size < 1) { return; }
+
+	// Copy to model bytes as the caller might release this memory while we need it (EXC_BAD_ACCESS error on ios)
+	m_modelBytes = (char*)malloc(sizeof(char) * size);
+	memcpy(m_modelBytes, modelBuffer, sizeof(char) * size);
+
+	m_model = TfLiteModelCreate(m_modelBytes, size);
 	if (m_model == nullptr) {
 		printf("Failed to load model");
 		return;

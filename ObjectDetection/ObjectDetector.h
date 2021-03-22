@@ -25,6 +25,7 @@ private:
 	const int DETECTION_MODEL_SIZE = 640;
 	const int DETECTION_MODEL_CNLS = 3;
 	bool m_modelQuantized = false;
+	char* m_modelBytes = nullptr;
 	TfLiteModel* m_model;
 	TfLiteInterpreter* m_interpreter;
 	TfLiteTensor* m_input_tensor = nullptr;
