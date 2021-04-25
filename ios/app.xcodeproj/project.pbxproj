@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E706A5026358FE8002D33DE /* labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7E706A4E26358FE8002D33DE /* labels.txt */; };
+		7E706A5126358FE8002D33DE /* od_model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 7E706A4F26358FE8002D33DE /* od_model.tflite */; };
+		7E706A5726359020002D33DE /* CV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E706A5526359020002D33DE /* CV.mm */; };
+		7E706A5C263590A7002D33DE /* ObjectDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E706A5B263590A7002D33DE /* ObjectDetector.cpp */; };
+		7E706A5F2635922C002D33DE /* TensorFlowLiteC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E706A5E2635922C002D33DE /* TensorFlowLiteC.framework */; };
+		7E706A602635922C002D33DE /* TensorFlowLiteC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7E706A5E2635922C002D33DE /* TensorFlowLiteC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7EBD34D626348A0500E5C364 /* DetectionCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBD34D526348A0500E5C364 /* DetectionCanvas.swift */; };
 		7EC1591D263483DC007BD724 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1591C263483DC007BD724 /* AppDelegate.swift */; };
 		7EC1591F263483DC007BD724 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1591E263483DC007BD724 /* SceneDelegate.swift */; };
@@ -15,9 +21,33 @@
 		7EC15926263483DF007BD724 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC15925263483DF007BD724 /* Assets.xcassets */; };
 		7EC15929263483DF007BD724 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC15927263483DF007BD724 /* LaunchScreen.storyboard */; };
 		7EC15932263486A3007BD724 /* ObjectDetectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC15931263486A3007BD724 /* ObjectDetectionVC.swift */; };
+		8ED70BF2D9D9205DA37B7626 /* Pods_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C83BCE4B2394EFBFEBE87FC /* Pods_app.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7E706A612635922C002D33DE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7E706A602635922C002D33DE /* TensorFlowLiteC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2C83BCE4B2394EFBFEBE87FC /* Pods_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E706A4E26358FE8002D33DE /* labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = labels.txt; sourceTree = "<group>"; };
+		7E706A4F26358FE8002D33DE /* od_model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = od_model.tflite; sourceTree = "<group>"; };
+		7E706A542635901F002D33DE /* app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "app-Bridging-Header.h"; sourceTree = "<group>"; };
+		7E706A5526359020002D33DE /* CV.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CV.mm; sourceTree = "<group>"; };
+		7E706A5626359020002D33DE /* CV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CV.h; sourceTree = "<group>"; };
+		7E706A5A263590A7002D33DE /* ObjectDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetector.h; path = ../../../ObjectDetection/ObjectDetector.h; sourceTree = "<group>"; };
+		7E706A5B263590A7002D33DE /* ObjectDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObjectDetector.cpp; path = ../../../ObjectDetection/ObjectDetector.cpp; sourceTree = "<group>"; };
+		7E706A5E2635922C002D33DE /* TensorFlowLiteC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TensorFlowLiteC.framework; path = "../../tflite-dist/libs/ios_fat/TensorFlowLiteC.framework"; sourceTree = "<group>"; };
 		7EBD34D526348A0500E5C364 /* DetectionCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionCanvas.swift; sourceTree = "<group>"; };
 		7EC15919263483DC007BD724 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC1591C263483DC007BD724 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +58,8 @@
 		7EC15928263483DF007BD724 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7EC1592A263483DF007BD724 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EC15931263486A3007BD724 /* ObjectDetectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionVC.swift; sourceTree = "<group>"; };
+		DD5C3B23FD0D722E460D7C54 /* Pods-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app.release.xcconfig"; path = "Target Support Files/Pods-app/Pods-app.release.xcconfig"; sourceTree = "<group>"; };
+		FC54B662D2AE3488C4567C24 /* Pods-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app.debug.xcconfig"; path = "Target Support Files/Pods-app/Pods-app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +67,61 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ED70BF2D9D9205DA37B7626 /* Pods_app.framework in Frameworks */,
+				7E706A5F2635922C002D33DE /* TensorFlowLiteC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FBC8C482C0D597ADF751D1B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FC54B662D2AE3488C4567C24 /* Pods-app.debug.xcconfig */,
+				DD5C3B23FD0D722E460D7C54 /* Pods-app.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		70C4CFD039006EC60F597E86 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E706A5E2635922C002D33DE /* TensorFlowLiteC.framework */,
+				2C83BCE4B2394EFBFEBE87FC /* Pods_app.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E706A4D26358FE8002D33DE /* models */ = {
+			isa = PBXGroup;
+			children = (
+				7E706A4E26358FE8002D33DE /* labels.txt */,
+				7E706A4F26358FE8002D33DE /* od_model.tflite */,
+			);
+			name = models;
+			path = ../../models;
+			sourceTree = "<group>";
+		};
+		7E706A5326358FFB002D33DE /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				7E706A5B263590A7002D33DE /* ObjectDetector.cpp */,
+				7E706A5A263590A7002D33DE /* ObjectDetector.h */,
+				7E706A5526359020002D33DE /* CV.mm */,
+				7E706A5626359020002D33DE /* CV.h */,
+				7E706A542635901F002D33DE /* app-Bridging-Header.h */,
+			);
+			path = Native;
+			sourceTree = "<group>";
+		};
 		7EC15910263483DC007BD724 = {
 			isa = PBXGroup;
 			children = (
 				7EC1591B263483DC007BD724 /* app */,
 				7EC1591A263483DC007BD724 /* Products */,
+				4FBC8C482C0D597ADF751D1B /* Pods */,
+				70C4CFD039006EC60F597E86 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +136,8 @@
 		7EC1591B263483DC007BD724 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				7E706A5326358FFB002D33DE /* Native */,
+				7E706A4D26358FE8002D33DE /* models */,
 				7EC1591C263483DC007BD724 /* AppDelegate.swift */,
 				7EC1591E263483DC007BD724 /* SceneDelegate.swift */,
 				7EC15920263483DC007BD724 /* ViewController.swift */,
@@ -80,9 +158,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7EC1592D263483DF007BD724 /* Build configuration list for PBXNativeTarget "app" */;
 			buildPhases = (
+				ED7DF9EB7300B44BB88BDCAF /* [CP] Check Pods Manifest.lock */,
 				7EC15915263483DC007BD724 /* Sources */,
 				7EC15916263483DC007BD724 /* Frameworks */,
 				7EC15917263483DC007BD724 /* Resources */,
+				7E706A612635922C002D33DE /* Embed Frameworks */,
+				7E706A6226359328002D33DE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -104,6 +185,7 @@
 				TargetAttributes = {
 					7EC15918263483DC007BD724 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -130,19 +212,65 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E706A5126358FE8002D33DE /* od_model.tflite in Resources */,
 				7EC15929263483DF007BD724 /* LaunchScreen.storyboard in Resources */,
 				7EC15926263483DF007BD724 /* Assets.xcassets in Resources */,
 				7EC15924263483DC007BD724 /* Main.storyboard in Resources */,
+				7E706A5026358FE8002D33DE /* labels.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7E706A6226359328002D33DE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
+		};
+		ED7DF9EB7300B44BB88BDCAF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-app-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7EC15915263483DC007BD724 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E706A5C263590A7002D33DE /* ObjectDetector.cpp in Sources */,
+				7E706A5726359020002D33DE /* CV.mm in Sources */,
 				7EC15921263483DC007BD724 /* ViewController.swift in Sources */,
 				7EBD34D626348A0500E5C364 /* DetectionCanvas.swift in Sources */,
 				7EC15932263486A3007BD724 /* ObjectDetectionVC.swift in Sources */,
@@ -291,11 +419,19 @@
 		};
 		7EC1592E263483DF007BD724 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC54B662D2AE3488C4567C24 /* Pods-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KG86WG3X2K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/OpenCV\"",
+					"/Users/yuval/MyProjects/tflite-dist/libs/ios_fat",
+				);
+				HEADER_SEARCH_PATHS = "/Users/yuval/MyProjects/tflite-dist/include";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -304,18 +440,29 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vyw.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "app/Native/app-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
 		7EC1592F263483DF007BD724 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD5C3B23FD0D722E460D7C54 /* Pods-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KG86WG3X2K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/OpenCV\"",
+					"/Users/yuval/MyProjects/tflite-dist/libs/ios_fat",
+				);
+				HEADER_SEARCH_PATHS = "/Users/yuval/MyProjects/tflite-dist/include";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,8 +471,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vyw.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "app/Native/app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};

@@ -14,7 +14,7 @@ class ObjectDetectionVC: UIViewController, AVCaptureVideoDataOutputSampleBufferD
     
     let sampleBufferQueue = DispatchQueue.global(qos: .background)
     var processing = false
-    // let cv = OpenCVWrapper()
+    let cv = CV()
     let detectionsCanvas = DetectionsCanvas()
 
     override func viewDidLoad() {
@@ -114,13 +114,13 @@ class ObjectDetectionVC: UIViewController, AVCaptureVideoDataOutputSampleBufferD
 
         processing = true
 
-//        let start = DispatchTime.now().uptimeNanoseconds
-//        let res = cv.detect(sampleBuffer)
-//        let span = DispatchTime.now().uptimeNanoseconds - start
-//        print("Detection time: \(span / 1000000) msec")
-//
-//        // Convert results to Float and set it for drawing on the canvas
-//        detectionsCanvas.detections = res.compactMap {($0 as! Float)}
+        let start = DispatchTime.now().uptimeNanoseconds
+        let res = cv.detect(sampleBuffer)
+        let span = DispatchTime.now().uptimeNanoseconds - start
+        print("Detection time: \(span / 1000000) msec")
+
+        // Convert results to Float and set it for drawing on the canvas
+        detectionsCanvas.detections = res.compactMap {($0 as! Float)}
 
         DispatchQueue.main.async { [weak self] in
             self!.detectionsCanvas.setNeedsDisplay()
@@ -130,7 +130,7 @@ class ObjectDetectionVC: UIViewController, AVCaptureVideoDataOutputSampleBufferD
     
     func loadLabels() -> [String] {
         var res = [String]()
-        if let filepath = Bundle.main.path(forResource: "labelmap", ofType: "txt") {
+        if let filepath = Bundle.main.path(forResource: "labels", ofType: "txt") {
             do {
                 let contents = try String(contentsOfFile: filepath)
                 res = contents.split { $0.isNewline }.map(String.init)

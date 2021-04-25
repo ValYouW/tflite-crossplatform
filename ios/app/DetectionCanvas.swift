@@ -37,9 +37,7 @@ class DetectionsCanvas: UIView {
             let ymin = yoff + CGFloat(detections[idx + 4]) * scaleY
             let ymax = yoff + CGFloat(detections[idx + 5]) * scaleY
             
-            // SSD Mobilenet Model assumes class 0 is background class and detection result class
-            // are zero-based (meaning class id 0 is class 1)
-            let labelIdx = classId + 1
+            let labelIdx = classId
             let label = labelmap.count > labelIdx ? labelmap[labelIdx] : classId.description
 
             // Draw rect
