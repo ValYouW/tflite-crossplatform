@@ -33,11 +33,15 @@ add_library( # Sets the name of the library.
 
     # Provides a relative path to your source file(s).
     ../../../../../ObjectDetection/ObjectDetector.cpp
-    native-lib.cpp )
+    ../../../../../LinesDetector/LinesDetector.cpp
+    ObjectDetectionActivity.cpp
+    LinesDetectionActivity.cpp
+)
 
 target_include_directories(
     native-lib PRIVATE
     ../../../../../ObjectDetection
+    ../../../../../LinesDetector
     ${Tensorflowlite_DIR}/include
 )
 

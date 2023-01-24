@@ -6,14 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnObjectDetection"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="btnObjectDetection_click"
-        android:text="Object Detection"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnObjectDetection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btnObjectDetection_click"
+            android:text="Object Detection" />
+
+        <Button
+            android:id="@+id/btnLinesDetection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btnLinesDetection_click"
+            android:text="Lines Detection" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@ public:
 	bool m_useNNAPI = false;
 private:
 	// members
-	const int DETECTION_MODEL_SIZE = 640;
+	const int DETECTION_MODEL_SIZE = 300;
 	const int DETECTION_MODEL_CNLS = 3;
 	bool m_modelQuantized = false;
 	char* m_modelBytes = nullptr;
