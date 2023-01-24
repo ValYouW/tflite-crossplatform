@@ -66,7 +66,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         // Set the detections drawings surface transparent
         binding.surfaceView.setZOrderOnTop(true)
         binding.surfaceView.holder.setFormat(PixelFormat.TRANSPARENT)
-
+        binding.lblStatus.text = ""
         loadLabels()
     }
 
@@ -162,7 +162,9 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         vBuffer.get(nv21, ySize, vSize);
         uBuffer.get(nv21, ySize + vSize, uSize);
 
+        val start = System.currentTimeMillis()
         val res = detect(detectorAddr, nv21, image.width, image.height, rotation)
+        val span = System.currentTimeMillis() - start
 
         val canvas = binding.surfaceView.holder.lockCanvas()
         if (canvas != null) {
@@ -174,6 +176,10 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
             }
 
             binding.surfaceView.holder.unlockCanvasAndPost(canvas)
+        }
+
+        runOnUiThread {
+            binding.lblStatus.text = "$span ms"
         }
 
         image.close()
