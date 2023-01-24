@@ -47,7 +47,7 @@ Java_com_vyw_tflite_ObjectDetection_initDetector(JNIEnv* env, jobject p_this, jo
         AAsset_close(asset);
     }
 
-    jlong res = (jlong) new ObjectDetector(buffer, size);
+    jlong res = (jlong) new ObjectDetector(buffer, size, false, false);
     free(buffer); // ObjectDetector duplicate it
     return res;
 }

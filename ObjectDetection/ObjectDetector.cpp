@@ -5,8 +5,9 @@
 using namespace cv;
 using namespace std;
 
-ObjectDetector::ObjectDetector(const char* modelBuffer, int size, bool quantized) {
+ObjectDetector::ObjectDetector(const char* modelBuffer, int size, bool quantized, bool useNNAPI) {
 	m_modelQuantized = quantized;
+	m_useNNAPI = useNNAPI;
 	initDetectionModel(modelBuffer, size);
 }
 
@@ -36,6 +37,14 @@ void ObjectDetector::initDetectionModel(const char* modelBuffer, int size) {
 	// Build the interpreter
 	TfLiteInterpreterOptions* options = TfLiteInterpreterOptionsCreate();
 	TfLiteInterpreterOptionsSetNumThreads(options, 1);
+
+#if defined(ANDROID) || defined(__ANDROID__)
+	if (m_useNNAPI) {
+		TfLiteNnapiDelegateOptions nnapiOpts = TfLiteNnapiDelegateOptionsDefault();
+		m_nnapi_delegate = TfLiteNnapiDelegateCreate(&nnapiOpts);
+		TfLiteInterpreterOptionsAddDelegate(options, m_nnapi_delegate);
+	}
+#endif
 
 	// Create the interpreter.
 	m_interpreter = TfLiteInterpreterCreate(m_model, options);
