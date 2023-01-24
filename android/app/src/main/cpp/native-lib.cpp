@@ -61,17 +61,14 @@ Java_com_vyw_tflite_ObjectDetection_destroyDetector(JNIEnv* env, jobject p_this,
 extern "C" JNIEXPORT jfloatArray JNICALL
 Java_com_vyw_tflite_ObjectDetection_detect(JNIEnv* env, jobject p_this,
                                             jlong detectorAddr, jbyteArray src, int width,
-                                            int height, int rotation) {
+                                            int height)
+{
+    jbyte *_rgba = env->GetByteArrayElements(src, 0);
+    Mat frame(height, width, CV_8UC4, _rgba);
+    cvtColor(frame, frame, COLOR_RGBA2BGRA);
 
-    jbyte *_yuv = env->GetByteArrayElements(src, 0);
+    env->ReleaseByteArrayElements(src, _rgba, 0);
 
-    Mat myyuv(height + height / 2, width, CV_8UC1, _yuv);
-    Mat frame(height, width, CV_8UC4);
-
-    cvtColor(myyuv, frame, COLOR_YUV2BGRA_NV21);
-    rotateMat(frame, rotation);
-
-    env->ReleaseByteArrayElements(src, _yuv, 0);
 
     ObjectDetector *detector = (ObjectDetector *) detectorAddr;
     DetectResult *res = detector->detect(frame);

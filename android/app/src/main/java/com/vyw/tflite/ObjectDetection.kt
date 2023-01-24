@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.graphics.*
-import android.media.Image.Plane
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
@@ -37,7 +36,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
     private lateinit var cameraExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
     private var detectorAddr = 0L
-    private lateinit var nv21: ByteArray
+    private lateinit var rgbaFrame: ByteArray
     private val labelsMap = arrayListOf<String>()
     private val _paint = Paint()
     private lateinit var binding: ActivityObjectDetectionBinding
@@ -109,9 +108,11 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
 
             // ImageAnalysis
             imageAnalyzer = ImageAnalysis.Builder()
+                .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
                 .setTargetResolution(Size(768, 1024))
                 .setTargetRotation(rotation)
-                .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
+                .setOutputImageRotationEnabled(true)
+                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                 .build()
                 // The analyzer can then be assigned to the instance
                 .also {
@@ -137,33 +138,22 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
     }
 
     override fun analyze(image: ImageProxy) {
-        if (image.planes.size < 3) {return}
+        if (image.planes.isEmpty()) {return}
         if (detectorAddr == 0L) {
             detectorAddr = initDetector(this.assets)
         }
 
-        val rotation = image.imageInfo.rotationDegrees
-
-        val planes = image.planes
-        val yBuffer = planes[0].buffer
-        val uBuffer = planes[1].buffer
-        val vBuffer = planes[2].buffer
-
-        val ySize = yBuffer.remaining()
-        val uSize = uBuffer.remaining()
-        val vSize = vBuffer.remaining()
-
-        if (!::nv21.isInitialized) {
-            nv21 = ByteArray(ySize + uSize + vSize)
+        val buffer = image.planes[0].buffer
+        val size = buffer.capacity()
+        if (!::rgbaFrame.isInitialized) {
+            rgbaFrame = ByteArray(size)
         }
 
-        //U and V are swapped
-        yBuffer.get(nv21, 0, ySize);
-        vBuffer.get(nv21, ySize, vSize);
-        uBuffer.get(nv21, ySize + vSize, uSize);
+        buffer.position(0)
+        buffer.get(rgbaFrame, 0, size)
 
         val start = System.currentTimeMillis()
-        val res = detect(detectorAddr, nv21, image.width, image.height, rotation)
+        val res = detect(detectorAddr, rgbaFrame, image.width, image.height)
         val span = System.currentTimeMillis() - start
 
         val canvas = binding.surfaceView.holder.lockCanvas()
@@ -172,7 +162,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
 
             // Draw the detections, in our case there are only 3
             for (i in 0 until res[0].toInt()) {
-                this.drawDetection(canvas, image.width, image.height, rotation, res, i)
+                this.drawDetection(canvas, image.width, image.height, res, i)
             }
 
             binding.surfaceView.holder.unlockCanvasAndPost(canvas)
@@ -189,7 +179,6 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         canvas: Canvas,
         frameWidth: Int,
         frameHeight: Int,
-        rotation: Int,
         detectionsArr: FloatArray,
         detectionIdx: Int
     ) {
@@ -205,13 +194,9 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         // Filter by score
         if (score < 0.4) return
 
-        // Get the frame dimensions
-        val w = if (rotation == 0 || rotation == 180) frameWidth else frameHeight
-        val h = if (rotation == 0 || rotation == 180) frameHeight else frameWidth
-
         // detection coords are in frame coord system, convert to screen coords
-        val scaleX = viewFinder.width.toFloat() / w
-        val scaleY = viewFinder.height.toFloat() / h
+        val scaleX = viewFinder.width.toFloat() / frameWidth
+        val scaleY = viewFinder.height.toFloat() / frameHeight
 
         // The camera view offset on screen
         val xoff = 0 // viewFinder.left.toFloat()
@@ -221,7 +206,6 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         xmax = xoff + xmax * scaleX
         ymin = yoff + ymin * scaleY
         ymax = yoff + ymax * scaleY
-
 
         // Draw the rect
         val p = Path()
@@ -254,5 +238,5 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
 
     private external fun initDetector(assetManager: AssetManager?): Long
     private external fun destroyDetector(ptr: Long)
-    private external fun detect(ptr: Long, srcAddr: ByteArray, width: Int, height: Int, rotation: Int): FloatArray
+    private external fun detect(ptr: Long, srcAddr: ByteArray, width: Int, height: Int): FloatArray
 }
