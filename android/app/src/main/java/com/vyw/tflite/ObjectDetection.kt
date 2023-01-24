@@ -15,6 +15,7 @@ import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.vyw.tflite.databinding.ActivityObjectDetectionBinding
 import kotlinx.android.synthetic.main.activity_object_detection.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -39,11 +40,12 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
     private lateinit var nv21: ByteArray
     private val labelsMap = arrayListOf<String>()
     private val _paint = Paint()
-
+    private lateinit var binding: ActivityObjectDetectionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_object_detection)
+        binding = ActivityObjectDetectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -62,8 +64,8 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
         _paint.textAlign = Paint.Align.LEFT
 
         // Set the detections drawings surface transparent
-        surfaceView.setZOrderOnTop(true)
-        surfaceView.holder.setFormat(PixelFormat.TRANSPARENT)
+        binding.surfaceView.setZOrderOnTop(true)
+        binding.surfaceView.holder.setFormat(PixelFormat.TRANSPARENT)
 
         loadLabels()
     }
@@ -94,7 +96,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-            val rotation = viewFinder.display.rotation
+            val rotation = binding.viewFinder.display.rotation
 
             // Preview
             val preview = Preview.Builder()
@@ -102,7 +104,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
                 .setTargetRotation(rotation)
                 .build()
                 .also {
-                    it.setSurfaceProvider(viewFinder.surfaceProvider)
+                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
 
             // ImageAnalysis
@@ -162,7 +164,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
 
         val res = detect(detectorAddr, nv21, image.width, image.height, rotation)
 
-        val canvas = surfaceView.holder.lockCanvas()
+        val canvas = binding.surfaceView.holder.lockCanvas()
         if (canvas != null) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY)
 
@@ -171,7 +173,7 @@ class ObjectDetection : AppCompatActivity(), ImageAnalysis.Analyzer {
                 this.drawDetection(canvas, image.width, image.height, rotation, res, i)
             }
 
-            surfaceView.holder.unlockCanvasAndPost(canvas)
+            binding.surfaceView.holder.unlockCanvasAndPost(canvas)
         }
 
         image.close()
